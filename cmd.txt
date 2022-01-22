@@ -1,12 +1,141 @@
-https://docs.djangoproject.com/en/4.0/intro/tutorial01/
-https://docs.djangoproject.com/en/4.0/intro/tutorial03/    ----  creating the public interface – “views.”
-
-***********************************
-
-python -m django --version
-
-
-$ django-admin startproject mysite
+$ django-admin startproject djangoPractice
 
 To create your app, make sure you’re in the same directory as manage.py and type this command:
-$ python manage.py startapp polls
+$ python manage.py startapp myapp
+
+
+python manage.py runserver
+
+
+*********************************************************************************
+
+Create views 
+
+1) create urls.py and craeate urls + views 
+
+from django.urls import path
+from . import views
+from django.http import HttpResponse
+
+urlpatterns=[
+    path( '', views.index , name="index" )
+
+]
+
+def index(requuest):
+     return HttpResponse("hello world")
+
+
+2) register views in main url files
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('myapp/', include('myapp.urls'))
+]
+
+*********************************************************************************
+
+render html :
+
+1) first register app in settings.py file
+
+
+2) create templates in myapp  ( by default django look in templates folder as base directory )
+
+myapp -> templates  -> myapp -> index.html
+
+3) create view 
+
+from django.shortcuts import render
+
+def index2(request):
+    return render(request, "index.html")
+
+
+************************************************************************************************************
+
+
+creating models:
+
+1)    
+
+create model in model class ----
+
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # on_delete : if the user is deleted , then we want to delete their posts as well
+
+    def __str__(self):  # dunder(double underscore) str method
+        return self.title
+
+
+# DateTimeField(auto_now = True)   -> for last modified field
+# DateTimeField(auto_now-add = True)   -> save current date when object is created but we cannot modify that date
+
+2) 
+
+create models and register in admin.py file in app
+
+from .models import Post
+admin.site.register(Question)
+
+
+3)  
+
+To run migrations we first need to create super user
+
+	python manage.py createsuperuser
+
+3)
+
+Re run the Migrations commands in order to get changes to our database.
+
+a) python manage.py makemigrations
+
+b) python manage.py sqlmigrate blog 0001   #  it prints out the code that is going to run
+
+c) python manage.py migrate
+
+
+***************************
+
+Manipulate database 
+
+see official docs   ---  https://docs.djangoproject.com/en/4.0/intro/tutorial02/
+
+Create User in cmd  ---  https://www.codegrepper.com/code-examples/python/django+add+user+command+line
+
+1) python manage.py shell
+
+2) >>> from app.Models import Post
+3) >>> from django.contrib.auth.models import User
+
+4) User.objects.all()
+4) User.objects.first()
+4) User.objects.filter(username='nouman')
+4) User.objects.filter(username='nouman').first()
+
+
+5) a) user = User.objects.filter(username='nouman').first()
+   b)  user.post_set
+   b)  user.post_set.all()
+
+
+6) exit()  to exit from shell
+
+see database.txt also
+
+
+
+***************************************************************************************************
+
+
