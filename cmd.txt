@@ -1,0 +1,12 @@
+https://docs.djangoproject.com/en/4.0/intro/tutorial01/
+https://docs.djangoproject.com/en/4.0/intro/tutorial03/    ----  creating the public interface – “views.”
+
+***********************************
+
+python -m django --version
+
+
+$ django-admin startproject mysite
+
+To create your app, make sure you’re in the same directory as manage.py and type this command:
+$ python manage.py startapp polls
