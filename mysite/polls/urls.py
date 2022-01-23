@@ -2,6 +2,9 @@ from django.urls import path
 
 from . import views
 
+# https://docs.djangoproject.com/en/4.0/intro/tutorial03/#namespacing-url-names
+
+app_name = 'polls'
 urlpatterns = [
 
     path('index1', views.index1, name="index1"),
