@@ -4,6 +4,10 @@ To create your app, make sure you’re in the same directory as manage.py and ty
 $ python manage.py startapp myapp
 
 
+myenv\Scripts\activate
+cd mysite
+
+
 python manage.py runserver
 
 
