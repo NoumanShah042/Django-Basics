@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from .models import Post
 from django.contrib.auth.models import User
+from .forms import PostForm
 
 
 # Create your views here.
@@ -84,7 +85,21 @@ def index3(request):
     return render(request, "myapp/gettingDataFromViews.html", context)
 
 
-def displayPosts(request):
+def display_posts(request):
     posts = Post.objects.all()
     context = {'posts': posts}
     return render(request, 'myapp/posts.html', context)
+
+
+def new_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            post = Post(title=title, content=content, author_id=1)
+            post.save()
+            return redirect('posts')
+    else:
+        form = PostForm()
+    return render(request, 'myapp/myForm.html', {'form': form})
