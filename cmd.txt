@@ -1,9 +1,20 @@
-$ django-admin startproject djangoPractice
+Create Project heirarchy
 
-To create your app, make sure you’re in the same directory as manage.py and type this command:
-$ python manage.py startapp myapp
+1)
 
--> Its useful to register app in settings.py fileimmediately
+python -m venv myenv        -- create virtual environment
+myenv\Scripts\activate      -- activate it
+
+
+pip install django
+pip install django-crispy-forms
+
+2) django-admin startproject djangoPractice
+
+3) To create your app, make sure you’re in the same directory as manage.py and type this command:
+   python manage.py startapp myapp
+
+4) Its useful to register app in settings.py file immediately
 	'myapp.apps.MyappConfig'
 
 myenv\Scripts\activate
@@ -17,7 +28,20 @@ python manage.py runserver
 
 Create views 
 
-1) create urls.py and craeate urls + views 
+1) create urls.py in the app 
+
+2) include this url file in main url file
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [                                  # note write / after route else it cause error
+    path('admin/', admin.site.urls),
+    path('myapp/', include('myapp.urls'))
+]
+
+
+3) craeate urls + views 
 
 from django.urls import path
 from . import views 
@@ -32,14 +56,6 @@ def index(requuest):
      return HttpResponse("hello world")
 
 
-2) register views in main url files
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('myapp/', include('myapp.urls'))
-]
 
 *********************************************************************************
 
@@ -57,7 +73,7 @@ myapp -> templates  -> myapp -> index.html
 from django.shortcuts import render
 
 def index2(request):
-    return render(request, "index.html")
+    return render(request, "myapp/index.html")
 
 
 ************************************************************************************************************

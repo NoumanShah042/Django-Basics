@@ -86,6 +86,7 @@ python manage.py shell
 
 >>> Post.objects.all()
 
+>>> post_2 = Post( title ='blog 2' , content='My second post', author_id = user.id )      correct
 >>> post_2 = Post( title ='blog 2' , content='My second post', author_id = user_id )
 >>> post_2.save()
 
