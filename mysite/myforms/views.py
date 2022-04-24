@@ -52,3 +52,4 @@ def get_contact(request):
     else:
         form = ContactForm()
     return render(request, 'myforms/myForm.html', {'form': form})
+    # return render(request, 'myforms/RenderingFormManually.html', {'form': form})
