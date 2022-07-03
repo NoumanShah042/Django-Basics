@@ -17,6 +17,7 @@ pip install django-crispy-forms
 4) Its useful to register app in settings.py file immediately
 	'myapp.apps.MyappConfig'
 
+
 myenv\Scripts\activate
 cd mysite
 
